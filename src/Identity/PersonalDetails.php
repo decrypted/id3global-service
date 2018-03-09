@@ -107,9 +107,10 @@ class PersonalDetails extends ID3IdentityObject {
      */
     public function setDateOfBirth($year, $month, $day) {
         $date = new DateTime();
-        $this->dateOfBirth = $date
-            ->setDate($year, $month, $day)
-            ->setTime(0, 0, 0);
+        $date->setDate($year, $month, $day);
+        $date->setTime(0, 0, 0);
+
+        $this->dateOfBirth = $date;
 
         $this->DOBDay = $day;
         $this->DOBMonth = $month;
