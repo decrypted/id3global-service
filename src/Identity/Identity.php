@@ -70,6 +70,10 @@ class Identity {
         return $this;
     }
 
+    public function getContactDetails() {
+        return $this->contactDetails;
+    }
+
     /**
      * @param Address\AddressContainer $addresses
      * @return Identity
