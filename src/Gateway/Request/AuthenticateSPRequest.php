@@ -28,6 +28,7 @@ class AuthenticateSPRequest
         $this->addPersonalDetails($identity);
         $this->addAddresses($identity);
         $this->addIdentityDocuments($identity);
+        $this->addContactDetails($identity);
 
     }
 
@@ -38,6 +39,14 @@ class AuthenticateSPRequest
 
         if (is_a($personalDetails, '\ID3Global\Identity\PersonalDetails')) {
             $this->InputData->Personal->PersonalDetails = $personalDetails;
+        }
+    }
+
+    private function addContactDetails(Identity $identity)
+    {
+        $contactDetails = $identity->getContactDetails();
+        if (is_a($contactDetails, '\ID3Global\Identity\ContactDetails')) {
+            $this->InputData->ContactDetails = $contactDetails;
         }
     }
 
