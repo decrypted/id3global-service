@@ -7,30 +7,30 @@ class ContactDetails {
     /**
      * @var PhoneNumber
      */
-    private $landPhone;
+    private $LandTelephone;
 
     /**
      * @var PhoneNumber
      */
-    private $mobilePhone;
+    private $MobileTelephone;
 
     /**
      * @var PhoneNumber
      */
-    private $workPhone;
+    private $WorkTelephone;
 
     /**
      * @var string
      */
-    private $email;
+    private $Email;
 
     /**
      * @param PhoneNumber $landPhone
      * @return ContactDetails
      */
-    public function setLandPhone(PhoneNumber $landPhone)
+    public function setLandTelephone(PhoneNumber $landPhone)
     {
-        $this->landPhone = $landPhone;
+        $this->LandTelephone = $landPhone;
         return $this;
     }
 
@@ -38,9 +38,9 @@ class ContactDetails {
      * @param PhoneNumber $mobilePhone
      * @return ContactDetails
      */
-    public function setMobilePhone(PhoneNumber $mobilePhone)
+    public function setMobileTelephone(PhoneNumber $mobilePhone)
     {
-        $this->mobilePhone = $mobilePhone;
+        $this->MobileTelephone = $mobilePhone;
         return $this;
     }
 
@@ -48,9 +48,9 @@ class ContactDetails {
      * @param PhoneNumber $workPhone
      * @return ContactDetails
      */
-    public function setWorkPhone(PhoneNumber $workPhone)
+    public function setWorkTelephone(PhoneNumber $workPhone)
     {
-        $this->workPhone = $workPhone;
+        $this->WorkTelephone = $workPhone;
         return $this;
     }
 
@@ -60,7 +60,7 @@ class ContactDetails {
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->Email = $email;
         return $this;
     }
 }

@@ -5,14 +5,14 @@ class PhoneNumber {
     /**
      * @var string
      */
-    private $number;
+    private $Number;
 
     /**
      * @param string $number
      * @return PhoneNumber
      */
     public function setNumber($number) {
-        $this->number = $number;
+        $this->Number = $number;
         return $this;
     }
 }
