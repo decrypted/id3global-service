@@ -75,6 +75,11 @@ class AuthenticateSPRequest
             if(is_a($passport, '\ID3Global\Identity\Documents\InternationalPassport')) {
                 $this->InputData->IdentityDocuments->InternationalPassport = $passport;
             }
+            $identityCard = $documents->getIdentityCard();
+
+            if(is_a($identityCard, '\ID3Global\Identity\Documents\IdentityCard')) {
+                $this->InputData->IdentityDocuments->IdentityCard = $identityCard;
+            }
 
             foreach($documents->getValidCountries() as $country) {
                 $varName = sprintf('get%sDocuments', $country);
