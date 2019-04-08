@@ -9,17 +9,46 @@ class DocumentContainer extends ID3IdentityObject
      * @var InternationalPassport
      */
     private $InternationalPassport;
+    
+    /**
+     * @var IdentityCard
+     */
+    private $IdentityCard;
 
     /**
      * @var \stdClass Identity documents relevant to New Zealand
      */
     private $NewZealand = null;
+    
+    /**
+     * @var \stdClass Identity documents relevant to Brazi
+     */
+    private $Brazil = null;
+    
+    /**
+     * @var \stdClass Identity documents relevant to US
+     */
+    private $US = null;
+    
+    /**
+     * @var \stdClass Identity documents relevant to Mexico
+     */
+    private $Mexico = null;
+    
+    /**
+     * @var \stdClass Identity documents relevant to Canada
+     */
+    private $Canada = null;
 
     /**
      * @var array Used by self::addIdentityDocument() to ensure the country name is valid
      */
     private $validCountries = array(
-        'NewZealand'
+        'NewZealand',
+        'Brazil',
+        'US',
+        'Mexico',
+        'Canada',
     );
 
     /**
@@ -39,13 +68,61 @@ class DocumentContainer extends ID3IdentityObject
         $this->InternationalPassport = $InternationalPassport;
         return $this;
     }
+    
+    /**
+     * @return IdentityCard
+     */
+    public function getIdentityCard() {
+        return $this->IdentityCard;
+    }
+    
+    /**
+     * @param IdentityCard $IdentityCard
+     * @return DocumentContainer
+     */
+    public function setIdentityCard($IdentityCard) {
+        $this->IdentityCard = $IdentityCard;
+        return $this;
+    }
 
     /**
-     * @return array
+     * @return \stdClass
      */
     public function getNewZealandDocuments()
     {
         return $this->NewZealand;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getBrazilDocuments()
+    {
+        return $this->Brazil;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getUSDocuments()
+    {
+        return $this->US;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getMexicoDocuments()
+    {
+        return $this->Mexico;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getCanadaDocuments()
+    {
+        return $this->Canada;
     }
 
     /**
