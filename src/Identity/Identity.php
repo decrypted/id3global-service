@@ -47,6 +47,11 @@ class Identity {
     private $identityDocuments;
 
     /**
+     * @var \ID3Global\Identity\Canada
+     */
+    private $canada;
+
+    /**
      * @param PersonalDetails $personalDetails
      * @return Identity
      */
@@ -103,6 +108,24 @@ class Identity {
     public function setIdentityDocuments($identityDocuments)
     {
         $this->identityDocuments = $identityDocuments;
+        return $this;
+    }
+
+    /**
+     * @return Canada
+     */
+    public function getCanada()
+    {
+        return $this->canada;
+    }
+
+    /**
+     * @param Canada $canada
+     * @return Identity
+     */
+    public function setCanada($canada)
+    {
+        $this->canada = $canada;
         return $this;
     }
 }

@@ -29,6 +29,7 @@ class AuthenticateSPRequest
         $this->addAddresses($identity);
         $this->addIdentityDocuments($identity);
         $this->addContactDetails($identity);
+        $this->addCanada($identity);
 
     }
 
@@ -88,6 +89,18 @@ class AuthenticateSPRequest
                 if(is_object($countryDocuments)) {
                     $this->InputData->IdentityDocuments->$country = $countryDocuments;
                 }
+            }
+        }
+    }
+    
+    private function addCanada(Identity $identity)
+    {
+        $canada = $identity->getCanada();
+        if (is_a($canada, '\ID3Global\Identity\Canada')) {
+            $this->InputData->Canada = new \stdClass();
+            $socialInsuranceNumber = $canada->getSocialInsuranceNumber();
+            if(is_a($socialInsuranceNumber, '\ID3Global\Identity\Canada\SocialInsuranceNumber')) {
+                $this->InputData->Canada->SocialInsuranceNumber = $socialInsuranceNumber;
             }
         }
     }

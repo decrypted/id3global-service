@@ -1,5 +1,5 @@
 <?php
-namespace ID3Global\Identity\Documents\CA;
+namespace ID3Global\Identity\Canada;
 
 use ID3Global\Identity\ID3IdentityObject;
 
