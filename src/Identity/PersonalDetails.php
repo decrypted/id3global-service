@@ -27,6 +27,11 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @var string
      */
+    private $SecondSurname;
+
+    /**
+     * @var string
+     */
     private $Gender;
 
     /**
@@ -91,6 +96,15 @@ class PersonalDetails extends ID3IdentityObject {
     }
 
     /**
+     * @param string $surname
+     * @return PersonalDetails
+     */
+    public function setSecondSurname($surname) {
+        $this->SecondSurname = $surname;
+        return $this;
+    }
+
+    /**
      * @param string $gender
      * @return PersonalDetails
      */
@@ -149,6 +163,14 @@ class PersonalDetails extends ID3IdentityObject {
     public function getSurname()
     {
         return $this->Surname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecondSurname()
+    {
+        return $this->SecondSurname;
     }
 
     /**
