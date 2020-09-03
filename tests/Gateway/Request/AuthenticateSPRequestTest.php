@@ -7,9 +7,13 @@ use ID3Global\Gateway\Request\AuthenticateSPRequest,
     ID3Global\Identity\Address\AddressContainer,
     ID3Global\Identity\Identity,
     ID3Global\Identity\Documents\DocumentContainer,
-    ID3Global\Identity\Documents\NZ\DrivingLicence;
+    ID3Global\Identity\Documents\NZ\DrivingLicence,
+    ID3Global\Identity\Documents\CA\SocialInsuranceNumber,
+    ID3Global\Identity\Documents\IN\Epic,
+    ID3Global\Identity\Documents\IN\PAN,
+    \ID3Global\Identity\Documents\IN\DrivingLicence as InDrivingLicence;
 
-class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
+class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
     public function testStandardParams() {
         $version = new \stdClass();
         $version->Version = 1;
@@ -119,5 +123,46 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('DI123456', $test->NewZealand->DrivingLicence->Number);
         $this->assertSame(123, $test->NewZealand->DrivingLicence->Version);
         $this->assertSame('ABC123', $test->NewZealand->DrivingLicence->VehicleRegistration);
+    }
+
+    public function testINDocuments() {
+        $identity = new Identity();
+        $container = new DocumentContainer();
+        $licence = new InDrivingLicence();
+        $licence->setNumber('123456');
+        $container->addIdentityDocument($licence, 'India');
+
+        $epic = new Epic();
+        $epic->setNumber('E123456');
+        $container->addIdentityDocument($epic, 'India');
+
+        $epic = new PAN();
+        $epic->setNumber('P123456');
+        $container->addIdentityDocument($epic, 'India');
+
+        $identity->setIdentityDocuments($container);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($identity);
+        $test = $r->getInputData()->IdentityDocuments;
+
+        $this->assertSame('123456', $test->India->DrivingLicence->Number);
+        $this->assertSame('E123456', $test->India->Epic->Number);
+        $this->assertSame('P123456', $test->India->PAN->Number);
+    }
+
+    public function testCADocuments() {
+        $identity = new Identity();
+        $container = new DocumentContainer();
+        $sin = new SocialInsuranceNumber();
+        $sin->setNumber('123456');
+        $container->addIdentityDocument($sin, 'Canada');
+
+        $identity->setIdentityDocuments($container);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($identity);
+        $test = $r->getInputData()->IdentityDocuments;
+        $this->assertSame('123456', $test->Canada->SocialInsuranceNumber->Number);
     }
 }
