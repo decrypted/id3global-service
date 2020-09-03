@@ -9,7 +9,7 @@ class DocumentContainer extends ID3IdentityObject
      * @var InternationalPassport
      */
     private $InternationalPassport;
-    
+
     /**
      * @var IdentityCard
      */
@@ -19,22 +19,32 @@ class DocumentContainer extends ID3IdentityObject
      * @var \stdClass Identity documents relevant to New Zealand
      */
     private $NewZealand = null;
-    
+
     /**
      * @var \stdClass Identity documents relevant to Brazi
      */
     private $Brazil = null;
-    
+
     /**
      * @var \stdClass Identity documents relevant to US
      */
     private $US = null;
-    
+
     /**
      * @var \stdClass Identity documents relevant to Mexico
      */
     private $Mexico = null;
-    
+
+    /**
+     * @var \stdClass Identity documents relevant to India
+     */
+    private $India = null;
+
+    /**
+     * @var \stdClass Identity documents relevant to Canada
+     */
+    private $Canada = null;
+
     /**
      * @var array Used by self::addIdentityDocument() to ensure the country name is valid
      */
@@ -43,6 +53,8 @@ class DocumentContainer extends ID3IdentityObject
         'Brazil',
         'US',
         'Mexico',
+        'India',
+        'Canada',
     );
 
     /**
@@ -62,14 +74,14 @@ class DocumentContainer extends ID3IdentityObject
         $this->InternationalPassport = $InternationalPassport;
         return $this;
     }
-    
+
     /**
      * @return IdentityCard
      */
     public function getIdentityCard() {
         return $this->IdentityCard;
     }
-    
+
     /**
      * @param IdentityCard $IdentityCard
      * @return DocumentContainer
@@ -109,6 +121,22 @@ class DocumentContainer extends ID3IdentityObject
     public function getMexicoDocuments()
     {
         return $this->Mexico;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getIndiaDocuments()
+    {
+        return $this->India;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getCanadaDocuments()
+    {
+        return $this->Canada;
     }
 
     /**
