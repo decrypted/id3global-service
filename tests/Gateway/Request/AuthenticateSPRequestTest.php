@@ -8,12 +8,16 @@ use ID3Global\Gateway\Request\AuthenticateSPRequest,
     ID3Global\Identity\Identity,
     ID3Global\Identity\Documents\DocumentContainer,
     ID3Global\Identity\Documents\NZ\DrivingLicence,
+    ID3Global\Identity\Documents\CN\ResidentIdentityCard,
     ID3Global\Identity\Documents\CA\SocialInsuranceNumber,
     ID3Global\Identity\Documents\IN\Epic,
     ID3Global\Identity\Documents\IN\PAN,
     \ID3Global\Identity\Documents\IN\DrivingLicence as InDrivingLicence;
 
 class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
+    /**
+     * @covers \ID3Global\Gateway\Request\AuthenticateSPRequest
+     */
     public function testStandardParams() {
         $version = new \stdClass();
         $version->Version = 1;
@@ -27,6 +31,9 @@ class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('X', $r->getCustomerReference());
     }
 
+    /**
+     * @covers \ID3Global\Identity\Address\FixedFormatAddress
+     */
     public function testFixedLengthAddress() {
         $identity = new Identity();
         $container = new AddressContainer();
@@ -66,6 +73,9 @@ class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame('10118', $test->ZipPostcode);
     }
 
+    /**
+     * @covers \ID3Global\Identity\Address\FreeFormatAddress
+     */
     public function testFreeFormatAddress() {
         $identity = new Identity();
         $container = new AddressContainer();
@@ -102,6 +112,9 @@ class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame('NZ', $test->AddressLine8);
     }
 
+    /**
+     * @covers \ID3Global\Identity\Documents\NZ\DrivingLicence
+     */
     public function testNZDrivingLicence() {
         $identity = new Identity();
         $container = new DocumentContainer();
@@ -125,6 +138,9 @@ class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame('ABC123', $test->NewZealand->DrivingLicence->VehicleRegistration);
     }
 
+    /**
+     * @covers \ID3Global\Identity\Documents\IN\DrivingLicence
+     */
     public function testINDocuments() {
         $identity = new Identity();
         $container = new DocumentContainer();
@@ -151,6 +167,10 @@ class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame('P123456', $test->India->PAN->Number);
     }
 
+    /**
+     * @covers \ID3Global\Identity\Documents\CA\SocialInsuranceNumber
+     * @covers \ID3Global\Identity\Canada\SocialInsuranceNumber
+     */
     public function testCADocuments() {
         $identity = new Identity();
         $container = new DocumentContainer();
@@ -164,5 +184,24 @@ class AuthenticateSPRequestTest extends \PHPUnit\Framework\TestCase {
         $r->addFieldsFromIdentity($identity);
         $test = $r->getInputData()->IdentityDocuments;
         $this->assertSame('123456', $test->Canada->SocialInsuranceNumber->Number);
+    }
+
+    /**
+     * @covers \ID3Global\Identity\Documents\CN\ResidentIdentityCard
+     */
+    public function testCNResidentIdentityCard() {
+        $identity = new Identity();
+        $container = new DocumentContainer();
+        $licence = new ResidentIdentityCard();
+
+        $licence->setNumber('1234567890');
+        $container->addIdentityDocument($licence, 'China');
+        $identity->setIdentityDocuments($container);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($identity);
+        $test = $r->getInputData()->IdentityDocuments;
+
+        $this->assertSame('1234567890', $test->China->ResidentIdentityCard->Number);
     }
 }

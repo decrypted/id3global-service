@@ -4,15 +4,4 @@
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>src/</directory>
-        </whitelist>
-    </filter>
-
-    <logging>
-        <log type="junit" target="/tmp/madmatt/id3global-service/junit.xml" logIncompleteSkipped="true" />
-        <log type="coverage-html" target="/tmp/madmatt/id3global-service/coverage-html" showUncoveredFiles="true" />
-    </logging>
 </phpunit>

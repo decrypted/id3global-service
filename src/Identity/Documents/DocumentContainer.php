@@ -45,6 +45,12 @@ class DocumentContainer extends ID3IdentityObject
      */
     private $Canada = null;
 
+
+    /**
+     * @var \stdClass Identity documents relevant to China
+     */
+    private $China = null;
+
     /**
      * @var array Used by self::addIdentityDocument() to ensure the country name is valid
      */
@@ -55,6 +61,7 @@ class DocumentContainer extends ID3IdentityObject
         'Mexico',
         'India',
         'Canada',
+        'China',
     );
 
     /**
@@ -137,6 +144,14 @@ class DocumentContainer extends ID3IdentityObject
     public function getCanadaDocuments()
     {
         return $this->Canada;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getChinaDocuments()
+    {
+        return $this->China;
     }
 
     /**
