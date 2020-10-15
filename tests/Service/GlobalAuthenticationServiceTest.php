@@ -5,8 +5,9 @@ use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
 use \ID3Global\Service\GlobalAuthenticationService;
+use PHPUnit\Framework\TestCase;
 
-class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
+class GlobalAuthenticationServiceTest extends TestCase
 {
     /**
      * @var GlobalAuthenticationService
@@ -18,13 +19,18 @@ class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
      */
     private $fakeGateway;
 
-    public function setUp() {
+    public function setUp(): void {
         $this->service = new GlobalAuthenticationService();
         $this->fakeGateway = new GlobalAuthenticationGatewayFake('username', 'password');
 
         $this->service->setGateway($this->fakeGateway);
     }
 
+    /**
+     * @covers \ID3Global\Gateway\Request\AuthenticateSPRequest
+     * @covers \ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake
+     * @covers \ID3Global\Stubs\Gateway\GlobalAuthenticationGateway
+     */
     public function testSuccessfulResponse() {
         $identity = $this->getSuccessfulIdentity();
 
@@ -40,16 +46,21 @@ class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage An Identity must be provided by setIdentity() before calling verifyIdentity()
+     * @covers \ID3Global\Gateway\Request\AuthenticateSPRequest
+     * @covers \ID3Global\Identity\Identity
      */
     public function testIdentityIsRequired() {
-        $this->service->verifyIdentity();
+        try {
+            $this->service->verifyIdentity();
+        } catch (\Exception $e) {
+            $this->assertSame('An Identity must be provided by setIdentity() before calling verifyIdentity()', $e->getMessage());
+        }
     }
 
     /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage An Identity must be provided by setIdentity() before calling verifyIdentity()
+     * @covers \ID3Global\Gateway\Request\AuthenticateSPRequest
+     * @covers \ID3Global\Identity\Identity
+     * @covers \ID3Global\Service\GlobalAuthenticationService
      */
     public function testIdentityIsProperlyValidated() {
         $class = new \ReflectionClass('\ID3Global\Service\GlobalAuthenticationService');
@@ -57,7 +68,11 @@ class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
         $property->setAccessible(true);
         $property->setValue($this->service, new \stdClass());
 
-        $this->service->verifyIdentity();
+        try {
+            $this->service->verifyIdentity();
+        } catch (\Exception $e) {
+            $this->assertSame('An Identity must be provided by setIdentity() before calling verifyIdentity()', $e->getMessage());
+        }
     }
 
     private function getSuccessfulIdentity() {
